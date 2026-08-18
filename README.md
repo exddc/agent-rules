@@ -2,6 +2,8 @@
 
 `AGENTS.md` is the single source of truth for personal instructions used by Codex, Grok, and Cursor on this Mac.
 
+Technical-writing skills live here too. They vendor [The Elements of Agent Style](https://github.com/yzhao062/agent-style) v0.4.2 as markdown. No pip or npm install.
+
 ## Install
 
 Run:
@@ -15,15 +17,33 @@ The installer creates these symbolic links:
 ```text
 ~/.codex/AGENTS.md -> ./AGENTS.md
 ~/.grok/AGENTS.md  -> ./AGENTS.md
+
+~/.agents/skills/create-technical-writing -> ./skills/create-technical-writing
+~/.agents/skills/review-technical-writing -> ./skills/review-technical-writing
 ```
+
+The same two skill directories are also linked into `~/.cursor/skills`, `~/.codex/skills`, `~/.claude/skills`, and `~/.grok/skills`.
 
 Existing files are moved to timestamped backup files before links are created. Running the installer again is safe.
 
 Cursor stores global User Rules in its settings rather than a supported `~/.cursor/AGENTS.md` file. Paste the contents of `CURSOR_USER_RULE.md` into **Cursor Settings > Rules > User Rules** once. That bridge instructs Cursor to read the canonical file at the start of each local task.
 
+## Skills
+
+| Skill | When to use |
+| --- | --- |
+| `create-technical-writing` | Draft docs, READMEs, design docs, papers, runbooks |
+| `review-technical-writing` | Audit existing prose; optional `FILE.reviewed.md` beside the original |
+
+Both skills follow the 21-rule catalog in `vendor/agent-style/RULES.md`. Chat replies still follow `AGENTS.md`.
+
+Based on *The Elements of Agent Style* (https://github.com/yzhao062/agent-style), CC BY 4.0. See `vendor/agent-style/NOTICE.md`.
+
 ## Update
 
-Edit only `AGENTS.md`, then start a new agent session. Codex and Grok usually load instructions when a session starts.
+Edit only `AGENTS.md` for chat/work rules, then start a new agent session. Codex and Grok usually load instructions when a session starts.
+
+To refresh the writing ruleset, replace files under `vendor/agent-style/` from a newer upstream tag and keep the PINNED.md note in sync.
 
 ## Verify
 
