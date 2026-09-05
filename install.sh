@@ -7,7 +7,7 @@ source_file="$rules_dir/AGENTS.md"
 user_home=${HOME:?HOME is not set}
 timestamp=$(date +%Y%m%d-%H%M%S)
 
-skill_names='create-technical-writing review-technical-writing'
+skill_names='create-technical-writing review-technical-writing my-code-review'
 skill_host_dirs="
 $user_home/.agents/skills
 $user_home/.cursor/skills
@@ -117,4 +117,4 @@ install_skills
 printf '\nCursor requires one manual step:\n'
 printf 'Paste %s into Cursor Settings > Rules > User Rules.\n' "$rules_dir/CURSOR_USER_RULE.md"
 printf '\nSkills are linked into ~/.agents/skills, ~/.cursor/skills, ~/.codex/skills, ~/.claude/skills, and ~/.grok/skills.\n'
-printf 'Start a new agent session so create-technical-writing and review-technical-writing load.\n'
+printf 'Start a new agent session so create-technical-writing, review-technical-writing, and my-code-review load.\n'
