@@ -101,6 +101,7 @@ if [ "${1:-}" = "--check" ]; then
   failed=0
   check_link "$user_home/.codex/AGENTS.md" "$source_file" || failed=1
   check_link "$user_home/.grok/AGENTS.md" "$source_file" || failed=1
+  check_link "$user_home/.claude/CLAUDE.md" "$source_file" || failed=1
   check_skills || failed=1
   exit "$failed"
 fi
@@ -112,6 +113,7 @@ fi
 
 link_rules "$user_home/.codex/AGENTS.md"
 link_rules "$user_home/.grok/AGENTS.md"
+link_rules "$user_home/.claude/CLAUDE.md"
 install_skills
 
 printf '\nCursor requires one manual step:\n'

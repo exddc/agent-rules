@@ -1,6 +1,6 @@
 # Shared agent rules
 
-`AGENTS.md` is the single source of truth for personal instructions used by Codex, Grok, and Cursor on this Mac.
+`AGENTS.md` is the single source of truth for personal instructions used by Codex, Grok, Claude Code, and Cursor on this Mac.
 
 Technical-writing skills live here too. They vendor [The Elements of Agent Style](https://github.com/yzhao062/agent-style) v0.4.2 as markdown. No pip or npm install.
 
@@ -15,8 +15,9 @@ Run:
 The installer creates these symbolic links:
 
 ```text
-~/.codex/AGENTS.md -> ./AGENTS.md
-~/.grok/AGENTS.md  -> ./AGENTS.md
+~/.codex/AGENTS.md  -> ./AGENTS.md
+~/.grok/AGENTS.md   -> ./AGENTS.md
+~/.claude/CLAUDE.md -> ./AGENTS.md
 
 ~/.agents/skills/create-technical-writing -> ./skills/create-technical-writing
 ~/.agents/skills/review-technical-writing -> ./skills/review-technical-writing
@@ -43,7 +44,7 @@ Based on *The Elements of Agent Style* (https://github.com/yzhao062/agent-style)
 
 ## Update
 
-Edit only `AGENTS.md` for chat/work rules, then start a new agent session. Codex and Grok usually load instructions when a session starts.
+Edit only `AGENTS.md` for chat/work rules, then start a new agent session. Codex, Grok, and Claude Code usually load instructions when a session starts.
 
 To refresh the writing ruleset, replace files under `vendor/agent-style/` from a newer upstream tag and keep the PINNED.md note in sync.
 
