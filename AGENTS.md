@@ -2,6 +2,7 @@
 - Never commit code without me stating so. If you commit code, write a short commit message with <10 words.
 - Never put your name in the commit message.
 - If I tell you to create a PR, commit and push your changes, then create a non-draft PR with a short title and description explaining what you did and why you did it.
+- Never reply to, resolve, or react to review comments on a PR.
 - Befor you start the work, pull the latest changes from the remote repository.
 
 # Comments
