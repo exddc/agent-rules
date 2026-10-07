@@ -22,6 +22,7 @@ The installer creates these symbolic links:
 ~/.agents/skills/create-technical-writing -> ./skills/create-technical-writing
 ~/.agents/skills/review-technical-writing -> ./skills/review-technical-writing
 ~/.agents/skills/my-code-review           -> ./skills/my-code-review
+~/.agents/skills/explore-redesign         -> ./skills/explore-redesign
 ```
 
 The same skill directories are also linked into `~/.cursor/skills`, `~/.codex/skills`, `~/.claude/skills`, and `~/.grok/skills`.
@@ -37,6 +38,7 @@ Cursor stores global User Rules in its settings rather than a supported `~/.curs
 | `create-technical-writing` | Draft docs, READMEs, design docs, papers, runbooks |
 | `review-technical-writing` | Audit existing prose; optional `FILE.reviewed.md` beside the original |
 | `my-code-review` | Review branch changes as a strict Senior Dev, Lead Engineer, and Architect; ranked findings with pass criteria |
+| `explore-redesign` | Inspect an existing app and generate redesign concepts in its design language before implementation |
 
 The two technical-writing skills follow the 21-rule catalog in `vendor/agent-style/RULES.md`. Chat replies still follow `AGENTS.md`.
 
