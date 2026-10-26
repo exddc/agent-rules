@@ -7,7 +7,7 @@ source_file="$rules_dir/AGENTS.md"
 user_home=${HOME:?HOME is not set}
 timestamp=$(date +%Y%m%d-%H%M%S)
 
-skill_names='create-technical-writing review-technical-writing my-code-review explore-redesign'
+skill_names='create-technical-writing review-technical-writing my-code-review explore-redesign pr'
 skill_host_dirs="
 $user_home/.agents/skills
 $user_home/.cursor/skills

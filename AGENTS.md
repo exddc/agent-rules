@@ -2,6 +2,7 @@
 - Never commit code without me stating so. If you commit code, write a short commit message with <10 words.
 - Never put your name or a Co-Authored-By trailer in the commit message.
 - If I tell you to create a PR, commit and push your changes, then create a non-draft PR with a short title and description explaining what you did and why you did it.
+- When I ask you to create a PR, or to handle a PR's review comments, failing CI, or merge conflicts, follow the `pr` skill.
 - Keep PR descriptions short. Skip verification and test sections that only say the change was verified or tests passed.
 - Never add a "Generated with Claude Code" line or any other tool attribution to a PR description.
 - Never reply to, resolve, or react to review comments on a PR.
