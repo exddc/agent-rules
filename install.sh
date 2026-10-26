@@ -72,6 +72,42 @@ check_link() {
   return 1
 }
 
+claude_settings="$user_home/.claude/settings.json"
+
+set_claude_attribution() {
+  mkdir -p "$(dirname -- "$claude_settings")"
+  python3 -I - "$claude_settings" <<'EOF'
+import json, os, sys
+
+path = sys.argv[1]
+settings = {}
+if os.path.exists(path):
+    with open(path) as f:
+        settings = json.load(f)
+
+wanted = {"commit": "", "pr": ""}
+if settings.get("attribution") == wanted:
+    print(f"Already set: attribution in {path}")
+    sys.exit(0)
+
+settings["attribution"] = wanted
+with open(path, "w") as f:
+    json.dump(settings, f, indent=2)
+    f.write("\n")
+print(f"Set: attribution in {path}")
+EOF
+}
+
+check_claude_attribution() {
+  if python3 -I -c 'import json, sys; sys.exit(json.load(open(sys.argv[1])).get("attribution") != {"commit": "", "pr": ""})' "$claude_settings" 2>/dev/null; then
+    printf 'OK: attribution in %s\n' "$claude_settings"
+    return 0
+  fi
+
+  printf 'Missing or incorrect: attribution in %s\n' "$claude_settings" >&2
+  return 1
+}
+
 install_skills() {
   for skill_name in $skill_names; do
     source_dir="$rules_dir/skills/$skill_name"
@@ -103,6 +139,7 @@ if [ "${1:-}" = "--check" ]; then
   check_link "$user_home/.grok/AGENTS.md" "$source_file" || failed=1
   check_link "$user_home/.claude/CLAUDE.md" "$source_file" || failed=1
   check_skills || failed=1
+  check_claude_attribution || failed=1
   exit "$failed"
 fi
 
@@ -115,6 +152,7 @@ link_rules "$user_home/.codex/AGENTS.md"
 link_rules "$user_home/.grok/AGENTS.md"
 link_rules "$user_home/.claude/CLAUDE.md"
 install_skills
+set_claude_attribution
 
 printf '\nCursor requires one manual step:\n'
 printf 'Paste %s into Cursor Settings > Rules > User Rules.\n' "$rules_dir/CURSOR_USER_RULE.md"

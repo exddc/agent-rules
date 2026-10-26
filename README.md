@@ -29,6 +29,8 @@ The same skill directories are also linked into `~/.cursor/skills`, `~/.codex/sk
 
 Existing files are moved to timestamped backup files before links are created. Running the installer again is safe.
 
+The installer also sets `"attribution": { "commit": "", "pr": "" }` in `~/.claude/settings.json` so Claude Code adds no attribution lines to commits or PRs. Other settings in that file are kept. This step needs `python3`.
+
 Cursor stores global User Rules in its settings rather than a supported `~/.cursor/AGENTS.md` file. Paste the contents of `CURSOR_USER_RULE.md` into **Cursor Settings > Rules > User Rules** once. That bridge instructs Cursor to read the canonical file at the start of each local task.
 
 ## Skills
