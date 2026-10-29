@@ -56,19 +56,21 @@ Skip this step if the change is trivial, such as a version bump, a link, or a co
 Write the body to a temporary file and run `gh pr create --base <base> --title "<title>" --body-file <file>`.
 
 - **Title:** short and imperative. Put the ticket ID first when there is one, for example `TW-569: Request reviews after positive moments`.
-- **Body:**
+- **Body:** no headings. Start with one or two sentences on the problem the PR solves and why it matters. Follow with 2 to 5 bullets on the changes. Example:
 
   ```markdown
-  Fixes [TW-569](<ticket URL>).
+  Every timed-out or cancelled child waited out the full grace period, even when it exited on SIGTERM. During `chime-webd` shutdown, that added up to 2 s per in-flight apply step.
 
-  ## What
-  - <2 to 5 bullets on what changed in behavior>
-
-  ## Why
-  <1 to 3 sentences on the problem or motivation>
+  - After SIGTERM, `PosixRunner` checks the group leader with `waitid(..., WEXITED | WNOHANG | WNOWAIT)` on each 20 ms tick. When the leader has exited, it sends SIGKILL to the group right away, then reaps and returns.
+  - `WNOWAIT` leaves the leader unreaped, so the process-group ID stays reserved until SIGKILL has gone out. No group signal is sent after the reap.
+  - Trade-off, documented in `platform/README.md`: descendants still running when the leader exits get SIGKILL without the rest of their grace period.
+  - New test: a SIGTERM-responsive child with a 2 s grace period returns in about 125 ms (it took 2.1 s before).
   ```
 
-  Leave out the `Fixes` line when there is no ticket. Add one "Not included:" line when a known gap or follow-up exists. Add no test or verification section, no tool attribution, and no images. Give before and after screenshots to the user in chat instead.
+  - Bullets cover what a reviewer must know: behavior changes, trade-offs, and new tests that prove the fix.
+  - Leave out routine changes such as version or build-number bumps, regenerated files, and formatting.
+  - With a ticket, end with `Fixes [TW-569](<ticket URL>).`
+  - Add no test or verification section, no tool attribution, and no images. Give before and after screenshots to the user in chat instead.
 
 **Done when:** a non-draft PR exists and is linked in the host.
 
