@@ -22,6 +22,7 @@ The installer creates these symbolic links:
 ~/.agents/skills/create-technical-writing -> ./skills/create-technical-writing
 ~/.agents/skills/review-technical-writing -> ./skills/review-technical-writing
 ~/.agents/skills/my-code-review           -> ./skills/my-code-review
+~/.agents/skills/peer-review              -> ./skills/peer-review
 ~/.agents/skills/explore-redesign         -> ./skills/explore-redesign
 ~/.agents/skills/pr                       -> ./skills/pr
 ```
@@ -41,6 +42,7 @@ Cursor stores global User Rules in its settings rather than a supported `~/.curs
 | `create-technical-writing` | Draft docs, READMEs, design docs, papers, runbooks |
 | `review-technical-writing` | Audit existing prose; optional `FILE.reviewed.md` beside the original |
 | `my-code-review` | Review branch changes as a strict Senior Dev, Lead Engineer, and Architect; ranked findings with pass criteria |
+| `peer-review` | Review a teammate's PR; verified must-fix and worth-suggesting comments, each with a GitHub line link and paste-ready text |
 | `explore-redesign` | Inspect an existing app and generate redesign concepts in its design language before implementation |
 | `pr` | Create a PR the way you like it, then fix valid review comments, failing CI, and merge conflicts until it is ready to merge |
 
