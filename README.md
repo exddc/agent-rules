@@ -25,6 +25,7 @@ The installer creates these symbolic links:
 ~/.agents/skills/peer-review              -> ./skills/peer-review
 ~/.agents/skills/explore-redesign         -> ./skills/explore-redesign
 ~/.agents/skills/pr                       -> ./skills/pr
+~/.agents/skills/tactile-design           -> ./skills/tactile-design
 ```
 
 The same skill directories are also linked into `~/.cursor/skills`, `~/.codex/skills`, `~/.claude/skills`, and `~/.grok/skills`.
@@ -45,10 +46,13 @@ Cursor stores global User Rules in its settings rather than a supported `~/.curs
 | `peer-review` | Review a teammate's PR; verified must-fix and worth-suggesting comments, each with a GitHub line link and paste-ready text |
 | `explore-redesign` | Inspect an existing app and generate redesign concepts in its design language before implementation |
 | `pr` | Create a PR the way you like it, then fix valid review comments, failing CI, and merge conflicts until it is ready to merge |
+| `tactile-design` | Build, restyle, or review product UI with tactile, layered, quiet surfaces in light and dark mode |
 
 The two technical-writing skills follow the 21-rule catalog in `vendor/agent-style/RULES.md`. Chat replies still follow `AGENTS.md`.
 
 Based on *The Elements of Agent Style* (https://github.com/yzhao062/agent-style), CC BY 4.0. See `vendor/agent-style/NOTICE.md`.
+
+`tactile-design` is vendored from [kosta4a/tactile-design](https://github.com/kosta4a/tactile-design), MIT. See `vendor/tactile-design/PINNED.md`.
 
 ## Update
 
