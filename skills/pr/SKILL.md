@@ -43,11 +43,11 @@ Skip this step if the change is trivial, such as a version bump, a link, or a co
 
 ## 2. Prepare the branch
 
-1. Run `git fetch origin`. If you are on the default branch, create a branch. Use the branch name the ticket suggests, otherwise `feature/<slug>` or `fix/<slug>`, with the ticket ID first in the slug when there is one.
+1. Run `git fetch origin`. If you are on the default branch, create a branch. With a ticket, name it `<ticket-id>/<slug>` in lowercase, such as `hc-12/request-reviews` or `tw-34/fix-login`. Without one, use `feature/<slug>` or `fix/<slug>`.
 2. Base the branch on the latest `origin/<base>`. If the work depends on an unmerged PR, base it on that PR's branch instead and say so in the PR body.
 3. Check `git diff --stat origin/<base>...HEAD`. It must show only this work. If it shows changes from an earlier PR that was squash-merged, rebase onto `origin/<base>`.
 4. Run the checks CI runs for the touched area, plus the repo's own gates, such as lint, format, and version checks.
-5. Stage only the files of this work. Commit with a message under 10 words, with no co-author trailer or tool attribution. Push with `git push -u origin <branch>`.
+5. Stage only the files of this work. Commit with a Conventional Commits message as AGENTS.md defines it, such as `feat(reviews): request reviews after positive moments`. No ticket ID, co-author trailer, or tool attribution. Push with `git push -u origin <branch>`.
 
 **Done when:** the branch is pushed and its diff against the base holds only this work.
 
@@ -55,7 +55,7 @@ Skip this step if the change is trivial, such as a version bump, a link, or a co
 
 Write the body to a temporary file and run `gh pr create --base <base> --title "<title>" --body-file <file>`.
 
-- **Title:** short and imperative. Put the ticket ID first when there is one, for example `TW-569: Request reviews after positive moments`.
+- **Title:** a Conventional Commits header, the same format as commit messages, for example `feat(reviews): request reviews after positive moments`. Squash merges use it as the commit message. No ticket ID.
 - **Body:** no headings. Start with one or two sentences on the problem the PR solves and why it matters. Follow with 2 to 5 bullets on the changes. Example:
 
   ```markdown
@@ -69,7 +69,7 @@ Write the body to a temporary file and run `gh pr create --base <base> --title "
 
   - Bullets cover what a reviewer must know: behavior changes, trade-offs, and new tests that prove the fix.
   - Leave out routine changes such as version or build-number bumps, regenerated files, and formatting.
-  - With a ticket, end with `Fixes [TW-569](<ticket URL>).`
+  - Never mention the ticket ID or link, such as `Fixes HC-12`. The branch name links the ticket.
   - Add no test or verification section, no tool attribution, and no images. Give before and after screenshots to the user in chat instead.
 
 **Done when:** a non-draft PR exists and is linked in the host.
@@ -144,7 +144,7 @@ Fix the root cause with the smallest change. Add a regression test when the find
 ## 8. Verify, commit, push
 
 1. Run what CI runs for the touched area, plus the repo's gates. Long suites may run in the background, but push only after they pass. If a check cannot run locally, say which and why.
-2. Commit with a message under 10 words that names the fix, with no co-author trailer or tool attribution.
+2. Commit with a Conventional Commits message that names the fix, such as `fix(api): handle empty review list`. No ticket ID, co-author trailer, or tool attribution.
 3. Push with a fast-forward `git push`, unless step 6 required `--force-with-lease`.
 
 **Done when:** the push succeeded and you have the new head SHA.

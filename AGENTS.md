@@ -1,5 +1,10 @@
 # Working with Git
-- Never commit code without me stating so. If you commit code, write a short commit message with <10 words.
+- Never commit code without me stating so.
+- Every commit message must strictly follow the Conventional Commits v1.0.0 specification: `<type>[optional scope][!]: <description>`.
+  - Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`.
+  - Description: imperative, lowercase, no trailing period, under 10 words. Example: `fix(auth): refresh token before expiry`.
+  - Mark breaking changes with `!` after the type or scope and a `BREAKING CHANGE:` footer.
+- Never put ticket IDs (such as `HC-12` or `TW-34`) in commit messages, PR titles, or PR descriptions. The branch name (`hc-12/<slug>`, `tw-34/<slug>`) already links the ticket.
 - Never put your name or a Co-Authored-By trailer in the commit message.
 - If I tell you to create a PR, commit and push your changes, then create a non-draft PR with a short title and description explaining what you did and why you did it.
 - When I ask you to create a PR, or to handle a PR's review comments, failing CI, or merge conflicts, follow the `pr` skill.
