@@ -1,3 +1,3 @@
-Before doing any work, read and follow `/Users/timoweiss/Projects/agent-rules/AGENTS.md`.
+Before doing any work, read and follow `{{AGENTS_MD}}`.
 
 If the file cannot be read, stop and tell me before continuing.

@@ -1,76 +1,42 @@
-# Shared agent rules
+# agent-rules
 
-`AGENTS.md` is the single source of truth for personal instructions used by Codex, Grok, Claude Code, and Cursor on this Mac.
+One set of instructions and skills for every coding agent (Claude Code, Codex, Cursor, and Grok) on every machine I work on. Clone it on each machine and run the installer to get the same setup everywhere.
 
-Technical-writing skills live here too. They vendor [The Elements of Agent Style](https://github.com/yzhao062/agent-style) v0.4.2 as markdown. No pip or npm install.
+- `AGENTS.md` holds the personal rules: git conventions, comment style, UI workflow, and output style.
+- `skills/` holds reusable skills that any agent supporting the skills format can load.
+
+Fork it, edit `AGENTS.md` to match how you work, and run the installer.
 
 ## Install
 
-Run:
-
 ```sh
-./install.sh
+./install.sh          # link rules and skills into each agent's config
+./install.sh --check  # verify the links
 ```
 
-The installer creates these symbolic links:
+The installer symlinks `AGENTS.md` to `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, and `~/.grok/AGENTS.md`, and links every skill into `~/.agents`, `~/.claude`, `~/.codex`, `~/.cursor`, and `~/.grok` under `skills/`. Existing files are moved to timestamped backups, so it is safe to run again. It also turns off Claude Code's commit and PR attribution in `~/.claude/settings.json` (needs `python3`).
 
-```text
-~/.codex/AGENTS.md  -> ./AGENTS.md
-~/.grok/AGENTS.md   -> ./AGENTS.md
-~/.claude/CLAUDE.md -> ./AGENTS.md
+Cursor has no global rules file. The installer prints a one-line rule to paste into **Cursor Settings > Rules > User Rules**.
 
-~/.agents/skills/create-technical-writing -> ./skills/create-technical-writing
-~/.agents/skills/review-technical-writing -> ./skills/review-technical-writing
-~/.agents/skills/my-code-review           -> ./skills/my-code-review
-~/.agents/skills/peer-review              -> ./skills/peer-review
-~/.agents/skills/explore-redesign         -> ./skills/explore-redesign
-~/.agents/skills/pr                       -> ./skills/pr
-~/.agents/skills/tactile-design           -> ./skills/tactile-design
-```
-
-The same skill directories are also linked into `~/.cursor/skills`, `~/.codex/skills`, `~/.claude/skills`, and `~/.grok/skills`.
-
-Existing files are moved to timestamped backup files before links are created. Running the installer again is safe.
-
-The installer also sets `"attribution": { "commit": "", "pr": "" }` in `~/.claude/settings.json` so Claude Code adds no attribution lines to commits or PRs. Other settings in that file are kept. This step needs `python3`.
-
-Cursor stores global User Rules in its settings rather than a supported `~/.cursor/AGENTS.md` file. Paste the contents of `CURSOR_USER_RULE.md` into **Cursor Settings > Rules > User Rules** once. That bridge instructs Cursor to read the canonical file at the start of each local task.
+Edits to `AGENTS.md` or a skill take effect in the next agent session.
 
 ## Skills
 
-| Skill | When to use |
+| Skill | Use it to |
 | --- | --- |
-| `create-technical-writing` | Draft docs, READMEs, design docs, papers, runbooks |
-| `review-technical-writing` | Audit existing prose; optional `FILE.reviewed.md` beside the original |
-| `my-code-review` | Review branch changes as a strict Senior Dev, Lead Engineer, and Architect; ranked findings with pass criteria |
-| `peer-review` | Review a teammate's PR; verified must-fix and worth-suggesting comments, each with a GitHub line link and paste-ready text |
-| `explore-redesign` | Inspect an existing app and generate redesign concepts in its design language before implementation |
-| `pr` | Create a PR the way you like it, then fix valid review comments, failing CI, and merge conflicts until it is ready to merge |
-| `tactile-design` | Build, restyle, or review product UI with tactile, layered, quiet surfaces in light and dark mode |
-
-The two technical-writing skills follow the 21-rule catalog in `vendor/agent-style/RULES.md`. Chat replies still follow `AGENTS.md`.
-
-Based on *The Elements of Agent Style* (https://github.com/yzhao062/agent-style), CC BY 4.0. See `vendor/agent-style/NOTICE.md`.
-
-`tactile-design` is vendored from [kosta4a/tactile-design](https://github.com/kosta4a/tactile-design), MIT. See `vendor/tactile-design/PINNED.md`.
-
-## Update
-
-Edit only `AGENTS.md` for chat/work rules, then start a new agent session. Codex, Grok, and Claude Code usually load instructions when a session starts.
-
-To refresh the writing ruleset, replace files under `vendor/agent-style/` from a newer upstream tag and keep the PINNED.md note in sync.
-
-## Verify
-
-Run:
-
-```sh
-./install.sh --check
-grok inspect
-```
-
-For Cursor, start a new local chat and confirm that the canonical path appears in the active rules or context view.
+| `pr` | Open a PR, then fix review comments, failing CI, and merge conflicts until it is ready to merge |
+| `my-code-review` | Review your own branch as a senior engineer, lead, and architect |
+| `peer-review` | Review a teammate's PR and get verified, paste-ready comments linked to exact lines |
+| `create-technical-writing` | Draft docs, READMEs, design docs, and runbooks |
+| `review-technical-writing` | Audit existing prose against the same rules |
+| `explore-redesign` | Generate redesign concepts for an existing app screen before building them |
+| `tactile-design` | Build or review UI with layered, tactile surfaces in light and dark mode |
 
 ## Project rules
 
-Keep repository-specific commands, architecture, and conventions in each project's own tracked `AGENTS.md`. They are layered with these personal defaults and should not be copied into this repository.
+Keep repository-specific commands and conventions in that repository's own `AGENTS.md`. Agents layer them on top of these personal defaults.
+
+## Credits
+
+- The technical-writing skills use [The Elements of Agent Style](https://github.com/yzhao062/agent-style) v0.4.2, CC BY 4.0. See `vendor/agent-style/`.
+- `tactile-design` is vendored from [kosta4a/tactile-design](https://github.com/kosta4a/tactile-design), MIT. See `vendor/tactile-design/`.

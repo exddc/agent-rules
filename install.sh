@@ -7,7 +7,7 @@ source_file="$rules_dir/AGENTS.md"
 user_home=${HOME:?HOME is not set}
 timestamp=$(date +%Y%m%d-%H%M%S)
 
-skill_names='create-technical-writing review-technical-writing my-code-review peer-review explore-redesign pr tactile-design'
+skill_names=$(cd "$rules_dir/skills" && for d in */; do printf '%s ' "${d%/}"; done)
 skill_host_dirs="
 $user_home/.agents/skills
 $user_home/.cursor/skills
@@ -154,7 +154,7 @@ link_rules "$user_home/.claude/CLAUDE.md"
 install_skills
 set_claude_attribution
 
-printf '\nCursor requires one manual step:\n'
-printf 'Paste %s into Cursor Settings > Rules > User Rules.\n' "$rules_dir/CURSOR_USER_RULE.md"
+printf '\nCursor requires one manual step. Paste this into Cursor Settings > Rules > User Rules:\n\n'
+sed "s|{{AGENTS_MD}}|$source_file|" "$rules_dir/CURSOR_USER_RULE.md"
 printf '\nSkills are linked into ~/.agents/skills, ~/.cursor/skills, ~/.codex/skills, ~/.claude/skills, and ~/.grok/skills.\n'
 printf 'Start a new agent session so the installed skills load.\n'
