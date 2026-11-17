@@ -37,9 +37,11 @@ If the host offers a PR link tool, such as T3 Code's `link_pull_request`, link e
 
 Run the `my-code-review` skill on the changes, in a subagent if the host supports one. Judge and fix its findings as in step 7.
 
+Then run the `prune-tests` skill on the tests the branch adds or changes. Skip it if the branch touches no tests and changes no behavior.
+
 Skip this step if the change is trivial, such as a version bump, a link, or a copy edit. Also skip it if this thread already reviewed the current changes, or the user says to skip it.
 
-**Done when:** every self-review finding has a verdict, and each valid one is fixed.
+**Done when:** every self-review finding has a verdict, each valid one is fixed, and every test the branch adds or changes guards intended behavior.
 
 ## 2. Prepare the branch
 

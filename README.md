@@ -26,6 +26,7 @@ Edits to `AGENTS.md` or a skill take effect in the next agent session.
 | --- | --- |
 | `pr` | Open a PR, then fix review comments, failing CI, and merge conflicts until it is ready to merge |
 | `my-code-review` | Review your own branch as a senior engineer, lead, and architect |
+| `prune-tests` | Delete or rewrite tests that guard no behavior, and keep a branch's new tests focused |
 | `peer-review` | Review a teammate's PR and get verified, paste-ready comments linked to exact lines |
 | `create-technical-writing` | Draft docs, READMEs, design docs, and runbooks |
 | `review-technical-writing` | Audit existing prose against the same rules |
