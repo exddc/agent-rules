@@ -19,10 +19,11 @@
 - Never comment on anything outside the code itself: no ticket/issue IDs, no history of what a bug was or how it was fixed, no notes on why a test exists or what a reviewer asked for. That belongs in commit messages and PRs.
 
 # UI Changes
-- If you make UI changes, make sure to use a simulator or dev server to preview the changes.
-- Before you change any UI, make a screenshot of the current UI and save it to a temporary folder for reference.
-- After you make the changes, take a new screenshot and compare it to the previous one.
-- Always give me the new screenshot and the previous screenshot for comparison.
+- These rules apply only when a change alters what the UI looks like: layout, styling, copy, components, or visual states. Skip them for logic, data, or refactors that leave the rendered UI the same.
+- Preview visual changes in a simulator or dev server.
+- Before you change the UI, take a screenshot of the current UI and save it to a temporary folder for reference.
+- After the change, take a new screenshot and compare it to the previous one.
+- Give me both screenshots for comparison. If they look identical, don't send them; say in one line that nothing changed visually.
 - Check existing UI components for similar design patterns and use them as a reference.
 
 ## Output style
