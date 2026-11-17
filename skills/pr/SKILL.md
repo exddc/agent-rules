@@ -57,22 +57,42 @@ Skip this step if the change is trivial, such as a version bump, a link, or a co
 
 Write the body to a temporary file and run `gh pr create --base <base> --title "<title>" --body-file <file>`.
 
-- **Title:** a Conventional Commits header, the same format as commit messages, for example `feat(reviews): request reviews after positive moments`. Squash merges use it as the commit message. No ticket ID.
-- **Body:** no headings. Start with one or two sentences on the problem the PR solves and why it matters. Follow with 2 to 5 bullets on the changes. Example:
+- **Title:** a Conventional Commits header, the same format as commit messages. Name the outcome a user sees, not the code you touched, such as `fix(mobile): show cached thread rows on cold launch` rather than `fix(mobile): hold splash in HomeScreen layout effect`. Squash merges use it as the commit message. No ticket ID.
+- **Body:** written for a reviewer who has not seen the work. Its length follows the change: a small fix needs a few sentences, a subtle bug can need a page.
+
+  1. **Opening, no heading:** the concrete problem a user or developer hit, with numbers where you have them ("the list was empty for more than 0.5 s in 7 of 50 launches"). Then one short paragraph on what is true now.
+  2. **Changes:** 2 to 5 bullets a reviewer must know: behavior changes, trade-offs, new tests that prove the fix. Lead each with a bold area when the change spans several, such as `**Server.**`.
+  3. **Evidence:** how you found or reproduced the problem, how you checked the change, and what you saw. Real runs and measurements, not "tests pass". Put before and after numbers in a table. UI changes get before and after screenshots, as AGENTS.md defines them. Add a short video when the change is about motion or timing.
+  4. **Limits:** what you did not reproduce, measure, or fix, and follow-ups that stay out of this PR. Skip it when there are none.
+
+  For a small change, write these as paragraphs without headings. When the body grows past one screen, use `## Cause` (for bugs), `## Fix`, `## Evidence`, and `## Limits`. Example:
 
   ```markdown
-  Every timed-out or cancelled child waited out the full grace period, even when it exited on SIGTERM. During `chime-webd` shutdown, that added up to 2 s per in-flight apply step.
+  A `chime-webd` shutdown with three apply steps in flight took 6.2 s. Every timed-out or cancelled child waited out its full 2 s grace period, even when it had already exited on SIGTERM.
 
-  - After SIGTERM, `PosixRunner` checks the group leader with `waitid(..., WEXITED | WNOHANG | WNOWAIT)` on each 20 ms tick. When the leader has exited, it sends SIGKILL to the group right away, then reaps and returns.
-  - `WNOWAIT` leaves the leader unreaped, so the process-group ID stays reserved until SIGKILL has gone out. No group signal is sent after the reap.
-  - Trade-off, documented in `platform/README.md`: descendants still running when the leader exits get SIGKILL without the rest of their grace period.
-  - New test: a SIGTERM-responsive child with a 2 s grace period returns in about 125 ms (it took 2.1 s before).
+  Now a child that exits on SIGTERM is killed and reaped on the next 20 ms tick.
+
+  - After SIGTERM, `PosixRunner` checks the group leader with `waitid(..., WEXITED | WNOHANG | WNOWAIT)` on each tick. When the leader has exited, it sends SIGKILL to the group, then reaps and returns.
+  - `WNOWAIT` leaves the leader unreaped, so the process-group ID stays reserved until SIGKILL has gone out.
+  - Trade-off, documented in `platform/README.md`: descendants still running when the leader exits lose the rest of their grace period.
+
+  | Scenario | Before | After |
+  | --- | --- | --- |
+  | Shutdown, 3 apply steps in flight | 6.2 s | 0.4 s |
+  | SIGTERM-responsive child, 2 s grace | 2.1 s | 0.13 s |
+  | Leftover children in `ps` after shutdown | 0 | 0 |
+
+  Reproduced by stopping `chime-webd` during a three-step apply on macOS 26. Not measured on Linux.
   ```
 
-  - Bullets cover what a reviewer must know: behavior changes, trade-offs, and new tests that prove the fix.
-  - Leave out routine changes such as version or build-number bumps, regenerated files, and formatting.
-  - Never mention the ticket ID or link, such as `Fixes HC-12`. The branch name links the ticket.
-  - Add no test or verification section, no tool attribution, and no images. Give before and after screenshots to the user in chat instead.
+  Leave out:
+  - who did the work: model names, agents, tools, "Generated with", "Created with", or reviewer lists
+  - the review process: which bot found what, review rounds, "addressed" notes. Describe the code as it is now
+  - "all checks pass" or test-count lines, since CI shows them
+  - routine changes such as version or build-number bumps, regenerated files, and formatting
+  - the ticket ID or link, such as `Fixes HC-12`. The branch name links the ticket
+
+  `gh` cannot upload media, so give the user the screenshot and video paths and ask them to drag the files into the PR body. Never commit them.
 
 **Done when:** a non-draft PR exists and is linked in the host.
 

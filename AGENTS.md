@@ -8,8 +8,8 @@
 - Never put your name or a Co-Authored-By trailer in the commit message.
 - If I tell you to create a PR, commit and push your changes, then create a non-draft PR with a short title and description explaining what you did and why you did it.
 - When I ask you to create a PR, or to handle a PR's review comments, failing CI, or merge conflicts, follow the `pr` skill.
-- Keep PR descriptions short. Skip verification and test sections that only say the change was verified or tests passed.
-- Never add a "Generated with Claude Code" line or any other tool attribution to a PR description.
+- Keep PR descriptions as short as the change allows. Skip verification and test sections that only say the change was verified or tests passed.
+- Never say who did the work in a PR description: no model or agent names, no "Generated with" or "Created with" lines, no other tool attribution.
 - Never reply to, resolve, or react to review comments on a PR.
 - Before you start work on the default branch with a clean working tree, run `git pull --ff-only`. If it fails, continue and tell me in one line.
 
