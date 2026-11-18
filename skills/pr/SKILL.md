@@ -62,7 +62,7 @@ Write the body to a temporary file and run `gh pr create --base <base> --title "
 
   1. **Opening, no heading:** the concrete problem a user or developer hit, with numbers where you have them ("the list was empty for more than 0.5 s in 7 of 50 launches"). Then one short paragraph on what is true now.
   2. **Changes:** 2 to 5 bullets a reviewer must know: behavior changes, trade-offs, new tests that prove the fix. Lead each with a bold area when the change spans several, such as `**Server.**`.
-  3. **Evidence:** how you found or reproduced the problem, how you checked the change, and what you saw. Real runs and measurements, not "tests pass". Put before and after numbers in a table. UI changes get before and after screenshots, as AGENTS.md defines them. Add a short video when the change is about motion or timing.
+  3. **Evidence:** how you found or reproduced the problem, how you checked the change, and what you saw. Real runs and measurements, not "tests pass". Put before and after numbers in a table. UI changes get before and after screenshots, as AGENTS.md defines them, in the table described below. Add a short video when the change is about motion or timing.
   4. **Limits:** what you did not reproduce, measure, or fix, and follow-ups that stay out of this PR. Skip it when there are none.
 
   For a small change, write these as paragraphs without headings. When the body grows past one screen, use `## Cause` (for bugs), `## Fix`, `## Evidence`, and `## Limits`. Example:
@@ -92,7 +92,21 @@ Write the body to a temporary file and run `gh pr create --base <base> --title "
   - routine changes such as version or build-number bumps, regenerated files, and formatting
   - the ticket ID or link, such as `Fixes HC-12`. The branch name links the ticket
 
-  `gh` cannot upload media, so give the user the screenshot and video paths and ask them to drag the files into the PR body. Never commit them.
+  **Screenshots and videos.** `gh` cannot upload media, so use the `gh-image` extension. If `gh image --version` fails, install it with `gh extension install drogers0/gh-image`.
+
+  1. Upload the files from the repo root: `gh image <file>...`. It prints one `![name](https://github.com/user-attachments/assets/<id>)` line per image and a bare URL per video.
+  2. Get each image's display size with `sips -g pixelWidth -g pixelHeight -g dpiWidth <file>`. Divide both pixel values by `dpiWidth / 72`, which is 2 for Retina screenshots.
+  3. Put each before and after pair in one table row. Set `alt` to `before-<state>` or `after-<state>`, where the state names what the image shows:
+
+     ```markdown
+     | Before | After |
+     |--------|--------|
+     | <img width="1280" height="800" alt="before-toast-on-open" src="https://github.com/user-attachments/assets/<id>" /> | <img width="1280" height="800" alt="after-toast-on-open" src="https://github.com/user-attachments/assets/<id>" /> |
+     ```
+
+  4. Put each video URL on its own line. GitHub renders it as a player.
+
+  If the upload fails, give the user the file paths and ask them to drag the files into the PR body. Never commit media.
 
 **Done when:** a non-draft PR exists and is linked in the host.
 

@@ -16,6 +16,8 @@ Fork it, edit `AGENTS.md` to match how you work, and run the installer.
 
 The installer symlinks `AGENTS.md` to `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, and `~/.grok/AGENTS.md`, and links every skill into `~/.agents`, `~/.claude`, `~/.codex`, `~/.cursor`, and `~/.grok` under `skills/`. Existing files are moved to timestamped backups, so it is safe to run again. It also turns off Claude Code's commit and PR attribution in `~/.claude/settings.json` (needs `python3`).
 
+The `pr` skill uploads PR screenshots with the [`gh-image`](https://github.com/drogers0/gh-image) extension: `gh extension install drogers0/gh-image`.
+
 Cursor has no global rules file. The installer prints a one-line rule to paste into **Cursor Settings > Rules > User Rules**.
 
 Edits to `AGENTS.md` or a skill take effect in the next agent session.
