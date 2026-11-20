@@ -46,5 +46,6 @@ Exceptions: explain fully when asked to explain. Confirm before destructive acti
 
 # Simulators and Dev Servers
 - If you need to see the changes you made, use a simulator or dev server to preview the changes.
-- For the iOS Simulator, use the `ios-debugger-agent` skill from the Codex plugin at `~/.codex/plugins/cache/openai-curated/build-ios-apps/*/skills/`.
+- For iOS Simulators and Android Emulators, use T3 Code's built-in device tools.
 - When you start a simulator or dev server, close them after you are done with them in a clean manner. Do not leave them running.
+- Delete any simulator or emulator you created once you no longer need it.
